@@ -28,6 +28,7 @@ const faq = [
 export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSkill, setActiveSkill] = useState(0);
 
   function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -73,13 +74,25 @@ export default function Home() {
       </section>
 
       <section className="program section" id="program">
-        <div className="program-intro"><p className="section-number">[ 02 — ЧТО ПРЕДСТОИТ ОСВОИТЬ ]</p><div><h2>В лесу всё начинается<br/>с первого решения</h2><p className="program-lead">Полный сценарий не публикуем намеренно. Часть обучения строится на неизвестности: вы будете принимать решения в условиях, приближённых к реальному выходу в лес.</p></div></div>
-        <div className="skill-grid">{skills.map(({n, title, text, image, position}) => <article className="skill" key={n}>
-          <img src={image} alt="" style={{objectPosition: position}} />
-          <div className="skill-shade" />
-          <span className="skill-number">{n}</span>
-          <div className="skill-copy"><h3>{title}</h3><p>{text}</p></div>
-        </article>)}</div>
+        <div className="program-intro"><p className="section-number">[ ДОСЬЕ 02 — ПРОГРАММА ]</p><div><h2>Известны навыки.<br/>Неизвестен сценарий.</h2><p className="program-lead">Мы покажем, чему вы научитесь. Но не станем рассказывать, когда и при каких обстоятельствах эти знания понадобятся.</p></div></div>
+        <div className="dossier">
+          <div className="dossier-index">
+            <div className="dossier-label"><span>Материалы курса</span><b>Частично открыто</b></div>
+            {skills.map((skill, index) => <button
+              className={activeSkill === index ? "active" : ""}
+              key={skill.n}
+              onClick={() => setActiveSkill(index)}
+              onMouseEnter={() => setActiveSkill(index)}
+              aria-pressed={activeSkill === index}
+            ><span>{skill.n}</span><strong>{skill.title}</strong><i>{activeSkill === index ? "Открыто" : "Выбрать"}</i></button>)}
+          </div>
+          <figure className="dossier-frame">
+            <img src={skills[activeSkill].image} alt={`Практика: ${skills[activeSkill].title.toLowerCase()}`} style={{objectPosition: skills[activeSkill].position}} />
+            <div className="dossier-grid" aria-hidden="true" />
+            <figcaption><span>Фрагмент {skills[activeSkill].n} / 06</span><h3>{skills[activeSkill].title}</h3><p>{skills[activeSkill].text}</p></figcaption>
+            <div className="redacted" aria-label="Часть сценария скрыта"><span>СЦЕНАРИЙ</span><b>СКРЫТО ДО НАЧАЛА КУРСА</b></div>
+          </figure>
+        </div>
         <div className="program-path" aria-label="Подход к обучению"><span>Освоить</span><i>→</i><span>Применить</span><i>→</i><span>Действовать самостоятельно</span></div>
       </section>
 
