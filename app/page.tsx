@@ -3,12 +3,12 @@
 import { FormEvent, useState } from "react";
 
 const skills = [
-  ["01", "Укрытие", "Выберете безопасное место и соберёте укрытие из тента и природных материалов."],
-  ["02", "Огонь", "Разведёте огонь без спичек, научитесь поддерживать его в сырость и ветер."],
-  ["03", "Вода", "Разберётесь, где искать воду, как собирать, фильтровать и обеззараживать её."],
-  ["04", "Навигация", "Научитесь ориентироваться, читать местность и действовать, если сбились с пути."],
-  ["05", "Первая помощь", "Отработаете базовые действия при травмах и переохлаждении вдали от города."],
-  ["06", "Верёвочная техника", "Освоите основные узлы, страховку, перемещение по сложному рельефу и сигналы бедствия."],
+  { n: "01", title: "Укрытие", text: "Когда готового места для ночлега нет.", image: "./course/shelter.jpeg", position: "center 42%" },
+  { n: "02", title: "Огонь", text: "Развести. Сохранить. Не зависеть от погоды.", image: "./course/fire.jpeg", position: "center 40%" },
+  { n: "03", title: "Вода", text: "Найти источник и сделать воду безопасной.", image: "./course/campfire.jpeg", position: "center 65%" },
+  { n: "04", title: "Ориентирование", text: "Понять, где вы и куда двигаться дальше.", image: "./course/trail.jpeg", position: "center 55%" },
+  { n: "05", title: "Первая помощь", text: "Не растеряться, когда помощь не приедет сразу.", image: "./course/group.jpeg", position: "center 36%" },
+  { n: "06", title: "Верёвка", text: "Пройти там, где обычной тропы уже нет.", image: "./course/rope.jpeg", position: "center 45%" },
 ];
 
 const essentials = [
@@ -56,7 +56,6 @@ export default function Home() {
       <section className="hero" id="top">
         <div className="hero-photo"><img src="./course/hero.jpeg" alt="Участники курса идут по лесному маршруту" /></div>
         <div className="hero-shade" />
-        <div className="hero-grid" aria-hidden="true" />
         <div className="hero-content">
           <div className="hero-meta"><p className="eyebrow">Подмосковье · Октябрь 2026</p><span>Координаты после регистрации</span></div>
           <h1><span>Курс</span><span className="outline">выживания</span><span>в лесу</span></h1>
@@ -65,26 +64,28 @@ export default function Home() {
             <div className="hero-actions"><a className="button primary" href="#signup">Оставить заявку <span>↗</span></a><a className="text-link" href="#program">Что будет на курсе ↓</a></div>
           </div>
         </div>
-        <div className="route-stamp" aria-hidden="true"><span>03</span><small>дня<br/>в лесу</small></div>
         <div className="hero-facts"><div><b>3</b><span>дня</span></div><div><b>2</b><span>ночи</span></div><div><b>15</b><span>человек</span></div><div><b>20 000 ₽</b><span>обучение + питание</span></div></div>
       </section>
 
-      <div className="ticker" aria-hidden="true"><div>ОГОНЬ <i>✦</i> УКРЫТИЕ <i>✦</i> ВОДА <i>✦</i> НАВИГАЦИЯ <i>✦</i> ПЕРВАЯ ПОМОЩЬ <i>✦</i> ЛЕС <i>✦</i> ОГОНЬ <i>✦</i> УКРЫТИЕ <i>✦</i></div></div>
-
       <section className="intro section">
         <p className="section-number">[ 01 — КУРС ]</p>
-        <div className="intro-copy"><h2>Не игра в выживание.<br/><span>Практика в реальном лесу.</span></h2><p>Вы проведёте две ночи в лесу, построите лагерь, разведёте огонь и отработаете действия, которые помогают сохранить спокойствие и безопасность в сложной ситуации.</p></div>
+        <div className="intro-copy"><h2>Три дня без готовых решений.<br/><span>Зато с настоящим опытом.</span></h2><p>Вы окажетесь в лесу, где привычные удобства не помогают. Данила научит замечать главное, спокойно оценивать обстановку и действовать руками — шаг за шагом.</p></div>
       </section>
 
       <section className="program section" id="program">
-        <div className="section-head"><p className="section-number">[ 02 — ПРОГРАММА ]</p><h2>Навыки, которые<br/>останутся с вами</h2></div>
-        <div className="skill-grid">{skills.map(([n, title, text]) => <article className="skill" key={n}><span>{n}</span><h3>{title}</h3><p>{text}</p></article>)}</div>
+        <div className="program-intro"><p className="section-number">[ 02 — ЧТО ПРЕДСТОИТ ОСВОИТЬ ]</p><div><h2>В лесу всё начинается<br/>с первого решения</h2><p className="program-lead">Полный сценарий не публикуем намеренно. Часть обучения строится на неизвестности: вы будете принимать решения в условиях, приближённых к реальному выходу в лес.</p></div></div>
+        <div className="skill-grid">{skills.map(({n, title, text, image, position}) => <article className="skill" key={n}>
+          <img src={image} alt="" style={{objectPosition: position}} />
+          <div className="skill-shade" />
+          <span className="skill-number">{n}</span>
+          <div className="skill-copy"><h3>{title}</h3><p>{text}</p></div>
+        </article>)}</div>
+        <div className="program-path" aria-label="Подход к обучению"><span>Освоить</span><i>→</i><span>Применить</span><i>→</i><span>Действовать самостоятельно</span></div>
       </section>
 
-      <section className="story-strip">
-        <figure className="story tall"><img src="./course/fire.jpeg" alt="Практика разведения огня"/><figcaption>Огонь без спичек</figcaption></figure>
-        <figure className="story"><img src="./course/shelter.jpeg" alt="Участники в самодельном укрытии"/><figcaption>Свой лагерь</figcaption></figure>
-        <figure className="story"><img src="./course/rope.jpeg" alt="Практика верёвочной техники"/><figcaption>Сложный рельеф</figcaption></figure>
+      <section className="field-note">
+        <img src="./course/hero.jpeg" alt="Группа выходит на лесной маршрут" />
+        <div><span>Полевое правило № 1</span><blockquote>Не угадывать, что будет дальше.<br/>Быть готовым действовать.</blockquote></div>
       </section>
 
       <section className="instructor section" id="instructor">
@@ -104,9 +105,9 @@ export default function Home() {
         <p className="section-number">[ 05 — БЕЗОПАСНОСТЬ ]</p><div><h2>Сложно —<br/><i>не значит опасно</i></h2><p>Перед стартом Данила проверяет подготовку группы и снаряжение. На маршруте есть аптечка, связь, запасной план и возможность экстренной эвакуации. О состоянии здоровья достаточно сообщить заранее.</p></div>
       </section>
 
-      <section className="reviews section">
-        <div className="section-head"><p className="section-number">[ 06 — ВПЕЧАТЛЕНИЯ ]</p><h2>Что обычно<br/>забирают с курса</h2><span className="demo-label">Примеры впечатлений · заменить на реальные отзывы</span></div>
-        <div className="review-grid"><blockquote>«Понимание, что паника — не план. Теперь я знаю, с чего начать, если что-то пошло не так.»<cite>Типичное впечатление новичка</cite></blockquote><blockquote>«Самое ценное — всё делаешь руками. После курса огонь, узлы и укрытие уже не выглядят теорией.»<cite>Типичное впечатление участника</cite></blockquote></div>
+      <section className="outcomes section">
+        <div className="outcomes-title"><p className="section-number">[ 06 — РЕЗУЛЬТАТ ]</p><h2>С курса<br/>вы унесёте</h2></div>
+        <div className="outcome-list"><article><span>01</span><h3>Спокойствие</h3><p>Понимание, с чего начинать, когда привычного плана больше нет.</p></article><article><span>02</span><h3>Навыки</h3><p>То, что вы не просто услышали, а сделали собственными руками.</p></article><article><span>03</span><h3>Опору на себя</h3><p>Уверенность без бравады — основанную на реальном опыте.</p></article></div>
       </section>
 
       <section className="faq section" id="faq">
